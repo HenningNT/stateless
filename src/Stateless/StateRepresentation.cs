@@ -16,11 +16,11 @@ namespace Stateless
 
             internal IDictionary<TTrigger, ICollection<TriggerBehaviour>> TriggerBehaviours { get { return _triggerBehaviours; } }
 
-            readonly ICollection<EntryActionBehavior> _entryActions = new List<EntryActionBehavior>();
-            internal ICollection<EntryActionBehavior> EntryActions { get { return _entryActions; } }
+            private EntryActionBehavior _entryAction;
+            internal EntryActionBehavior EntryActions { get { return _entryAction; } }
 
-            readonly ICollection<ExitActionBehavior> _exitActions = new List<ExitActionBehavior>();
-            internal ICollection<ExitActionBehavior> ExitActions { get { return _exitActions; } }
+            private ExitActionBehavior _exitAction;
+            internal ExitActionBehavior ExitActions { get { return _exitAction; } }
 
             readonly ICollection<ActivateActionBehaviour> _activateActions = new List<ActivateActionBehaviour>();
             internal ICollection<ActivateActionBehaviour> ActivateActions { get { return _activateActions; } }
@@ -99,17 +99,17 @@ namespace Stateless
 
             public void AddEntryAction(TTrigger trigger, Action<Transition, object[]> action, Reflection.InvocationInfo entryActionDescription)
             {
-                _entryActions.Add(new EntryActionBehavior.SyncFrom<TTrigger>(trigger, action, entryActionDescription));
+                _entryAction = new EntryActionBehavior.SyncFrom<TTrigger>(trigger, action, entryActionDescription);
             }
 
             public void AddEntryAction(Action<Transition, object[]> action, Reflection.InvocationInfo entryActionDescription)
             {
-                _entryActions.Add(new EntryActionBehavior.Sync(action, entryActionDescription));
+                _entryAction = new EntryActionBehavior.Sync(action, entryActionDescription);
             }
 
             public void AddExitAction(Action<Transition> action, Reflection.InvocationInfo exitActionDescription)
             {
-                _exitActions.Add(new ExitActionBehavior.Sync(action, exitActionDescription));
+                _exitAction = new ExitActionBehavior.Sync(action, exitActionDescription);
             }
 
             internal void AddInternalAction(TTrigger trigger, Action<Transition, object[]> action)
@@ -195,14 +195,12 @@ namespace Stateless
 
             void ExecuteEntryActions(Transition transition, object[] entryArgs)
             {
-                foreach (var action in _entryActions)
-                    action.Execute(transition, entryArgs);
+                _entryAction?.Execute(transition, entryArgs);
             }
 
             void ExecuteExitActions(Transition transition)
             {
-                foreach (var action in _exitActions)
-                    action.Execute(transition);
+                _exitAction?.Execute(transition);
             }
             internal void InternalAction(Transition transition, object[] args)
             {

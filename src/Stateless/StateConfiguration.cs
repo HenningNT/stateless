@@ -450,11 +450,12 @@ namespace Stateless
             public StateConfiguration OnEntryFrom(TTrigger trigger, Action entryAction, string entryActionDescription = null)
             {
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(
                     trigger,
                     (t, args) => entryAction(),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
 
             }
@@ -470,11 +471,12 @@ namespace Stateless
             public StateConfiguration OnEntryFrom(TTrigger trigger, Action<Transition> entryAction, string entryActionDescription = null)
             {
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(
                     trigger,
                     (t, args) => entryAction(t),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
             }
 
@@ -491,12 +493,13 @@ namespace Stateless
             {
                 if (trigger == null) throw new ArgumentNullException(nameof(trigger));
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(
                     trigger.Trigger,
                     (t, args) => entryAction(
                         ParameterConversion.Unpack<TArg0>(args, 0)),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
 
             }
@@ -514,12 +517,13 @@ namespace Stateless
             {
                 if (trigger == null) throw new ArgumentNullException(nameof(trigger));
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(
                     trigger.Trigger,
                     (t, args) => entryAction(
                         ParameterConversion.Unpack<TArg0>(args, 0), t),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
             }
 
@@ -537,12 +541,13 @@ namespace Stateless
             {
                 if (trigger == null) throw new ArgumentNullException(nameof(trigger));
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(trigger.Trigger,
                     (t, args) => entryAction(
                         ParameterConversion.Unpack<TArg0>(args, 0),
                         ParameterConversion.Unpack<TArg1>(args, 1)),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
 
             }
@@ -561,11 +566,12 @@ namespace Stateless
             {
                 if (trigger == null) throw new ArgumentNullException(nameof(trigger));
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(trigger.Trigger, (t, args) => entryAction(
                     ParameterConversion.Unpack<TArg0>(args, 0),
                     ParameterConversion.Unpack<TArg1>(args, 1), t),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
             }
 
@@ -584,12 +590,13 @@ namespace Stateless
             {
                 if (trigger == null) throw new ArgumentNullException(nameof(trigger));
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(trigger.Trigger, (t, args) => entryAction(
                     ParameterConversion.Unpack<TArg0>(args, 0),
                     ParameterConversion.Unpack<TArg1>(args, 1),
                     ParameterConversion.Unpack<TArg2>(args, 2)),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
 
             }
@@ -609,12 +616,13 @@ namespace Stateless
             {
                 if (trigger == null) throw new ArgumentNullException(nameof(trigger));
                 if (entryAction == null) throw new ArgumentNullException(nameof(entryAction));
+                var _entryActionDescription = entryActionDescription ?? nameof(entryAction);
 
                 _representation.AddEntryAction(trigger.Trigger, (t, args) => entryAction(
                     ParameterConversion.Unpack<TArg0>(args, 0),
                     ParameterConversion.Unpack<TArg1>(args, 1),
                     ParameterConversion.Unpack<TArg2>(args, 2), t),
-                    Reflection.InvocationInfo.Create(entryAction, entryActionDescription));
+                    Reflection.InvocationInfo.Create(entryAction, _entryActionDescription));
                 return this;
             }
 
@@ -628,10 +636,11 @@ namespace Stateless
             public StateConfiguration OnExit(Action exitAction, string exitActionDescription = null)
             {
                 if (exitAction == null) throw new ArgumentNullException(nameof(exitAction));
+                var _exitActionDescription = exitActionDescription ?? nameof(exitAction);
 
                 _representation.AddExitAction(
                     t => exitAction(),
-                    Reflection.InvocationInfo.Create(exitAction, exitActionDescription));
+                    Reflection.InvocationInfo.Create(exitAction, _exitActionDescription));
                 return this;
             }
 
@@ -644,9 +653,11 @@ namespace Stateless
             /// <returns>The receiver.</returns>
             public StateConfiguration OnExit(Action<Transition> exitAction, string exitActionDescription = null)
             {
+                var _exitActionDescription = exitActionDescription ?? nameof(exitAction);
+
                 _representation.AddExitAction(
                     exitAction,
-                    Reflection.InvocationInfo.Create(exitAction, exitActionDescription));
+                    Reflection.InvocationInfo.Create(exitAction, _exitActionDescription));
                 return this;
             }
 

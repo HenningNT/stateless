@@ -32,7 +32,7 @@ namespace Stateless.Reflection
         InvocationInfo(string methodName, string description, Timing timing)      // description can be null if user didn't specify a description
         {
             MethodName = methodName;
-            _description = description;
+            _description = description == null ? methodName : description;
             _timing = timing;
         }
 

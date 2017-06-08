@@ -26,10 +26,10 @@ namespace Stateless.Reflection
             }
 
             StateInfo stateInfo = new StateInfo(stateReperesentation.UnderlyingState, ignoredTriggers,
-                stateReperesentation.EntryActions.Select(e => e.Description).ToList(),
+                stateReperesentation.EntryActions.Description,
                 stateReperesentation.ActivateActions.Select(e => e.Description).ToList(),
                 stateReperesentation.DeactivateActions.Select(e => e.Description).ToList(),
-                stateReperesentation.ExitActions.Select(e => e.Description).ToList());
+                stateReperesentation.ExitActions.Description);
 
             return stateInfo;
         }
@@ -76,17 +76,17 @@ namespace Stateless.Reflection
         private StateInfo(
             object underlyingState,
             IEnumerable<TriggerInfo> ignoredTriggers,
-            IEnumerable<InvocationInfo> entryActions,
+            InvocationInfo entryActions,
             IEnumerable<InvocationInfo> activateActions,
             IEnumerable<InvocationInfo> deactivateActions,
-            IEnumerable<InvocationInfo> exitActions)
+            InvocationInfo exitActions)
         {
             UnderlyingState = underlyingState;
             IgnoredTriggers = ignoredTriggers ?? throw new ArgumentNullException(nameof(ignoredTriggers));
-            EntryActions = entryActions;
+            EntryAction = entryActions;
             ActivateActions = activateActions;
             DeactivateActions = deactivateActions;
-            ExitActions = exitActions;
+            ExitAction = exitActions;
         }
 
         private void AddRelationships(
@@ -119,7 +119,7 @@ namespace Stateless.Reflection
         /// <summary>
         /// Actions that are defined to be executed on state-entry.
         /// </summary>
-        public IEnumerable<InvocationInfo> EntryActions { get; private set; }
+        public InvocationInfo EntryAction { get; private set; }
 
         /// <summary>
         /// Actions that are defined to be executed on activation.
@@ -134,7 +134,7 @@ namespace Stateless.Reflection
         /// <summary>
         /// Actions that are defined to be exectuted on state-exit.
         /// </summary>
-        public IEnumerable<InvocationInfo> ExitActions { get; private set; }
+        public InvocationInfo ExitAction { get; private set; }
 
         /// <summary>
         /// Transitions defined for this state.

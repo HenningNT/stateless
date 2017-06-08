@@ -117,8 +117,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(1, binding.FixedTransitions.Count());
             foreach (FixedTransitionInfo trans in binding.FixedTransitions)
@@ -155,8 +153,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count()); //  Binding substate count mismatch"
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count()); //  Binding entry actions count mismatch
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(2, binding.FixedTransitions.Count()); // Transition count mismatch
             //
@@ -213,8 +209,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(1, binding.FixedTransitions.Count());
             foreach (FixedTransitionInfo trans in binding.FixedTransitions)
@@ -253,8 +247,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(1, binding.FixedTransitions.Count());
             foreach (FixedTransitionInfo trans in binding.FixedTransitions)
@@ -292,8 +284,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(1, binding.FixedTransitions.Count());
             foreach (FixedTransitionInfo trans in binding.FixedTransitions)
@@ -331,8 +321,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(1, binding.FixedTransitions.Count());
             foreach (FixedTransitionInfo trans in binding.FixedTransitions)
@@ -369,8 +357,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(0, binding.FixedTransitions.Count()); // Binding transition count mismatch
             Assert.Equal(0, binding.IgnoredTriggers.Count());
@@ -404,8 +390,6 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
             //
             Assert.Equal(0, binding.FixedTransitions.Count()); // Binding transition count mismatch"
             Assert.Equal(0, binding.IgnoredTriggers.Count());
@@ -438,12 +422,8 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(1, binding.EntryActions.Count());
-            foreach (InvocationInfo entryAction in binding.EntryActions)
-            {
-                Assert.Equal("enteredA", entryAction.Description);
-            }
-            Assert.Equal(0, binding.ExitActions.Count());
+            Assert.NotNull(binding.EntryAction);
+            Assert.Equal("enteredA", binding.EntryAction.Description);
             //
             Assert.Equal(0, binding.FixedTransitions.Count()); // Binding count mismatch
             Assert.Equal(0, binding.IgnoredTriggers.Count());
@@ -470,10 +450,8 @@ namespace Stateless.Tests
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
             //
-            Assert.Equal(1, binding.EntryActions.Count());
-            foreach (InvocationInfo entryAction in binding.EntryActions)
-                Assert.Equal("enteredA", entryAction.Description);
-            Assert.Equal(0, binding.ExitActions.Count());
+            Assert.NotNull(binding.EntryAction);
+            Assert.Equal("enteredA", binding.EntryAction.Description);
             //
             Assert.Equal(0, binding.FixedTransitions.Count()); // Binding count mismatch
             Assert.Equal(0, binding.IgnoredTriggers.Count());
@@ -500,10 +478,9 @@ namespace Stateless.Tests
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
             //
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(1, binding.ExitActions.Count());
-            foreach (InvocationInfo exitAction in binding.ExitActions)
-                Assert.Equal("exitA", exitAction.Description);
+            Assert.Null( binding.EntryAction);
+            Assert.NotNull(binding.ExitAction);
+            Assert.Equal("exitA", binding.ExitAction.Description);
             //
             Assert.Equal(0, binding.FixedTransitions.Count()); // Binding count mismatch
             Assert.Equal(0, binding.IgnoredTriggers.Count());
@@ -530,10 +507,9 @@ namespace Stateless.Tests
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
             //
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(1, binding.ExitActions.Count());
-            foreach (InvocationInfo entryAction in binding.ExitActions)
-                Assert.Equal("exitA", entryAction.Description);
+            Assert.Null(binding.EntryAction);
+            Assert.NotNull(binding.ExitAction);
+                Assert.Equal("exitA", binding.ExitAction.Description);
             //
             Assert.Equal(0, binding.FixedTransitions.Count()); // Binding count mismatch
             Assert.Equal(0, binding.IgnoredTriggers.Count());
@@ -579,8 +555,8 @@ namespace Stateless.Tests
             //
             Assert.Equal(0, binding.Substates.Count());
             Assert.Equal(null, binding.Superstate);
-            Assert.Equal(0, binding.EntryActions.Count());
-            Assert.Equal(0, binding.ExitActions.Count());
+            Assert.Null(binding.EntryAction);
+            Assert.Null(binding.ExitAction);
             Assert.Equal(0, binding.DynamicTransitions.Count()); // Dynamic transition count mismatch
         }
 
@@ -670,8 +646,8 @@ namespace Stateless.Tests
             foreach (StateInfo stateInfo in inf.States)
             {
                 VerifyMethodNames(stateInfo.ActivateActions, "On", "Activate", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
-                VerifyMethodNames(stateInfo.EntryActions, "On", "Entry", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
-                VerifyMethodNames(stateInfo.ExitActions, "On", "Exit", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
+                //VerifyMethodNames(stateInfo.EntryAction, "On", "Entry", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
+                //VerifyMethodNames(stateInfo.ExitAction, "On", "Exit", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
                 VerifyMethodNames(stateInfo.DeactivateActions, "On", "Deactivate", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
             }
 
@@ -695,11 +671,11 @@ namespace Stateless.Tests
 
             inf = sm.GetInfo();
 
-            foreach (StateInfo stateInfo in inf.States)
-            {
-                VerifyMethodNames(stateInfo.EntryActions, "On", "EntryTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
-                VerifyMethodNames(stateInfo.ExitActions, "On", "ExitTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
-            }
+            //foreach (StateInfo stateInfo in inf.States)
+            //{
+            //    VerifyMethodNames(stateInfo.EntryAction, "On", "EntryTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
+            //    VerifyMethodNames(stateInfo.ExitAction, "On", "ExitTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Synchronous);
+            //}
 
             // --------------------------------------------------------
 
@@ -740,12 +716,12 @@ namespace Stateless.Tests
 
             inf = sm.GetInfo();
 
-            foreach (StateInfo stateInfo in inf.States)
-            {
-                VerifyMethodNameses(stateInfo.EntryActions, "On", "Entry", (State)stateInfo.UnderlyingState,
-                    InvocationInfo.Timing.Synchronous,
-                    new HashSet<string> { "", "Trans", "Int", "IntTrans", "IntInt", "IntIntInt" });
-            }
+            //foreach (StateInfo stateInfo in inf.States)
+            //{
+            //    VerifyMethodNameses(stateInfo.EntryAction, "On", "Entry", (State)stateInfo.UnderlyingState,
+            //        InvocationInfo.Timing.Synchronous,
+            //        new HashSet<string> { "", "Trans", "Int", "IntTrans", "IntInt", "IntIntInt" });
+            //}
 
             /*
             public StateConfiguration OnEntryFrom<TArg0, TArg1>(TriggerWithParameters<TArg0, TArg1> trigger, Action<TArg0, TArg1, Transition> entryAction, string entryActionDescription = null)
@@ -784,8 +760,8 @@ namespace Stateless.Tests
             foreach (StateInfo stateInfo in inf.States)
             {
                 VerifyMethodNames(stateInfo.ActivateActions, "On", "Activate", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
-                VerifyMethodNames(stateInfo.EntryActions, "On", "Entry", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
-                VerifyMethodNames(stateInfo.ExitActions, "On", "Exit", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
+                //VerifyMethodNames(stateInfo.EntryAction, "On", "Entry", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
+                //VerifyMethodNames(stateInfo.ExitAction, "On", "Exit", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
                 VerifyMethodNames(stateInfo.DeactivateActions, "On", "Deactivate", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
             }
 
@@ -807,11 +783,11 @@ namespace Stateless.Tests
 
             inf = sm.GetInfo();
 
-            foreach (StateInfo stateInfo in inf.States)
-            {
-                VerifyMethodNames(stateInfo.EntryActions, "On", "EntryTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
-                VerifyMethodNames(stateInfo.ExitActions, "On", "ExitTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
-            }
+            //foreach (StateInfo stateInfo in inf.States)
+            //{
+            //    VerifyMethodNames(stateInfo.EntryAction, "On", "EntryTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
+            //    VerifyMethodNames(stateInfo.ExitAction, "On", "ExitTrans", (State)stateInfo.UnderlyingState, InvocationInfo.Timing.Asynchronous);
+            //}
             /*
             public StateConfiguration OnEntryFromAsync(TTrigger trigger, Func<Task> entryAction, string entryActionDescription = null)
             public StateConfiguration OnEntryFromAsync(TTrigger trigger, Func<Transition, Task> entryAction, string entryActionDescription = null)

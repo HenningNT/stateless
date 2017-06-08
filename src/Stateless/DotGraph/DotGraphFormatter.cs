@@ -45,7 +45,7 @@ namespace Stateless.DotGraph
                 lines.Insert(0, label);
             }
 
-            if (bindings.Any(s => s.EntryActions.Any() || s.ExitActions.Any()))
+            if (bindings.Any(s => s.EntryAction!=null || s.ExitAction!=null))
             {
                 lines.Add("node [shape=box];");
 
@@ -53,17 +53,11 @@ namespace Stateless.DotGraph
                 {
                     var source = binding.ToString();
 
-                    foreach (var entryActionBehaviour in binding.EntryActions)
-                    {
-                        string line = string.Format(" {0} -> \"{1}\" [label=\"On Entry\" style=dotted];", source, entryActionBehaviour.Description);
-                        lines.Add(line);
-                    }
+                    if (binding.EntryAction != null)
+                        lines.Add( string.Format(" {0} -> \"{1}\" [label=\"On Entry\" style=dotted];", source, binding.EntryAction.Description));
 
-                    foreach (var exitActionBehaviour in binding.ExitActions)
-                    {
-                        string line = string.Format(" {0} -> \"{1}\" [label=\"On Exit\" style=dotted];", source, exitActionBehaviour.Description);
-                        lines.Add(line);
-                    }
+                    if (binding.ExitAction != null)
+                        lines.Add( string.Format(" {0} -> \"{1}\" [label=\"On Exit\" style=dotted];", source, binding.ExitAction.Description));
                 }
             }
 

@@ -25,7 +25,7 @@ namespace Stateless
             {
                 if (action == null) throw new ArgumentNullException(nameof(action));
 
-                _entryActions.Add(
+                _entryAction = 
                     new EntryActionBehavior.Async((t, args) =>
                     {
                         if (t.Trigger.Equals(trigger))
@@ -33,20 +33,20 @@ namespace Stateless
 
                         return TaskResult.Done;
                     },
-                    entryActionDescription));
+                    entryActionDescription);
             }
 
             public void AddEntryAction(Func<Transition, object[], Task> action, Reflection.InvocationInfo entryActionDescription)
             {
-                _entryActions.Add(
+                _entryAction = 
                     new EntryActionBehavior.Async(
                         action,
-                        entryActionDescription));
+                        entryActionDescription);
             }
 
             public void AddExitAction(Func<Transition, Task> action, Reflection.InvocationInfo exitActionDescription)
             {
-                _exitActions.Add(new ExitActionBehavior.Async(action, exitActionDescription));
+                _exitAction = new ExitActionBehavior.Async(action, exitActionDescription);
             }
 
             internal void AddInternalAction(TTrigger trigger, Func<Transition, object[], Task> action)
@@ -134,14 +134,12 @@ namespace Stateless
 
             async Task ExecuteEntryActionsAsync(Transition transition, object[] entryArgs)
             {
-                foreach (var action in _entryActions)
-                    await action.ExecuteAsync(transition, entryArgs);
+                await _entryAction.ExecuteAsync(transition, entryArgs);
             }
 
             async Task ExecuteExitActionsAsync(Transition transition)
             {
-                foreach (var action in _exitActions)
-                    await action.ExecuteAsync(transition);
+                await _exitAction.ExecuteAsync(transition);
             }
 
             async Task ExecuteInternalActionsAsync(Transition transition, object[] args)
